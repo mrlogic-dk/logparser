@@ -41,7 +41,7 @@ import numpy as np
 
 class PatternMatch(object):
 
-    def __init__(self, outdir='./result/', n_workers=1, optimized=False, logformat=None):
+    def __init__(self, outdir='./result/', n_workers=1, optimized=False, logformat=None, sep=','):
         self.outdir = outdir
         if not os.path.exists(outdir):
             os.makedirs(outdir) # Make the result directory
@@ -50,6 +50,7 @@ class PatternMatch(object):
         self.logformat = logformat
         self.n_workers = n_workers
         self.optimized = optimized
+        self.sep = sep
 
     def add_event_template(self, event_template, event_Id=None):
         if not event_Id:
@@ -93,7 +94,7 @@ class PatternMatch(object):
         return match_list, paras
 
     def read_template_from_csv(self, template_filepath):
-        template_dataframe = pd.read_csv(template_filepath)
+        template_dataframe = pd.read_csv(template_filepath, sep=self.sep)
         for idx, row in template_dataframe.iterrows():
             event_Id = row['EventId']
             event_template = row['EventTemplate']
