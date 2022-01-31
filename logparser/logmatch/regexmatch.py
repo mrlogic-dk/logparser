@@ -172,6 +172,7 @@ def regex_match(msg, template_match_dict, optimized):
     if not matched_event:
         matched_event = ('NONE', 'NONE')
     if parameter_list:
-        parameter_list = list(parameter_list[0])
+        if not isinstance(parameter_list[0], str):
+            parameter_list = list(parameter_list[0])
     return matched_event, parameter_list
 
